@@ -61,8 +61,6 @@ def followBack(api):
 
 def likeRetweet(api, user_lang="en"):
     max_tweets, query = userQueryTweetMax(True)
-    #query = str(input('provide search query: '))
-    #max_tweets = int(input('provide max tweets: '))
     for tweet in tweepy.Cursor(api.search, query, lang=user_lang).items(max_tweets):
         try:
             if not tweet.favorited:
@@ -81,11 +79,6 @@ def likeRetweet(api, user_lang="en"):
 def getFeed(api):
     max_tweets = userQueryTweetMax(False)
     user_feed = api.home_timeline(tweet_mode='extended', count=max_tweets)
-    #tweets = [tweet.full_text for tweet in user_feed]
-    #users = [tweet.user.screen_name for tweet in user_feed]
-    # list comprehension is slightly less efficient
-    for tweet in user_feed:  # i in range(len(tweets)):
-        #print(f'User {users[i]} tweeted:')
-        # print(f'"{tweets[i]}"\n')
+    for tweet in user_feed:
         print(f'User {tweet.user.screen_name} tweeted:')
         print(f'"{tweet.full_text}"\n')
